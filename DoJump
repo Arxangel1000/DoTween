@@ -1,0 +1,18 @@
+
+            for (int j = _world.CharacterItems.Count - 1; j >= 0; j--)
+            {
+                CItem i = _world.CharacterItems[j];
+                
+                i.transform.SetParent(collector.DropPoint);
+
+                i.transform
+                    .DOJump(collector.DropPoint.position, 2.5f, 1, 0.75f)
+                    .SetEase(Ease.Linear)
+                    .OnComplete(() => i.gameObject.SetActive(false));
+
+                count++;
+                
+                collector.Count.text = $"{count}/{_world.CharacterItems.Count}";
+
+                await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
+            }
