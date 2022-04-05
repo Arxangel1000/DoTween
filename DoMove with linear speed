@@ -1,0 +1,18 @@
+  float speed = _config.Core.playerSpeed;
+  playerInfo.moveTween = playerInfo.transform
+                            .DOMove(
+                                new Vector3(hitWall.point.x, playerInfo.transform.position.y, hitWall.point.z) +
+                                offsetOfWalls,
+                                speed).SetSpeedBased().SetEase(Ease.Linear)
+                            .OnComplete(() =>
+                            {
+                                _vibra.PlayVibration.Execute(1);
+                                playerInfo.ViewInfo.Animator.CrossFadeInFixedTime(animNames.Idle1, 0.02f);
+                                playerInfo.isMoveable.Value = false;
+                                
+                                if (hitWall.collider.CompareTag("FinishPoint"))
+                                {
+                                    playerInfo.PlayerOnFinishPoint.Execute();
+                                    hitWall.collider.gameObject.SetActive(false);
+                                }
+                            });
