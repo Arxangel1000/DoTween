@@ -1,0 +1,19 @@
+ float duration = Vector3.Distance(playerInfo.transform.position, hitWall.point) / 7.5f;
+
+                        playerInfo.moveTween = playerInfo.transform
+                            .DOMove(
+                                new Vector3(hitWall.point.x, playerInfo.transform.position.y, hitWall.point.z) +
+                                offsetOfWalls,
+                                duration)
+                            .OnComplete(() =>
+                            {
+                                _vibra.PlayVibration.Execute(1);
+                                playerInfo.ViewInfo.Animator.CrossFadeInFixedTime(animNames.Idle1, 0.02f);
+                                playerInfo.isMoveable.Value = false;
+                                
+                                if (hitWall.collider.CompareTag("FinishPoint"))
+                                {
+                                    playerInfo.PlayerOnFinishPoint.Execute();
+                                    hitWall.collider.gameObject.SetActive(false);
+                                }
+                            });
