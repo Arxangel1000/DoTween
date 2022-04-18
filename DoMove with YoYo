@@ -1,0 +1,3 @@
+transform.DOMove(new Vector3(x,y,z), 1f)
+                .SetEase(Ease.Linear)
+                .SetLoops(-1, LoopType.Yoyo);
