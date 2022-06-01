@@ -1,0 +1,2 @@
+Change Image alpha
+points[i].DOFade(1, 2f);
